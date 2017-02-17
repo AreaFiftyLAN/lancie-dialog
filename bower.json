@@ -1,5 +1,6 @@
 {
   "name": "lancie-dialog",
+  "version": "1.0.0",
   "description": "Dialog for the lancie frontends",
   "main": "lancie-dialog.html",
   "dependencies": {
