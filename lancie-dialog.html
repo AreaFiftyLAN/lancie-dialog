@@ -143,17 +143,13 @@ simply give it the `dialog-dismiss` attribute.
       },
 
       addDismissListeners: function() {
-        // Start: Very dirty Microsoft hack: "fix" for lack of ForEach on NodeList in Edge and IE
-        if(window.navigator.userAgent.indexOf("Edge") > -1 || window.navigator.userAgent.indexOf("Trident") > -1){
-          NodeList.prototype.forEach = Array.prototype.forEach;
-        }
-        // End: Very dirty Microsoft hack
         var dialog = this;
-        this.querySelectorAll('[dialog-dismiss]').forEach(function(button) {
-          button.addEventListener('tap', function() {
+        var buttons = this.querySelectorAll('[dialog-dismiss]');
+        for (var i = 0, len = buttons.length; i < len; i++) {
+          buttons[i].addEventListener('tap', function() {
             dialog.close();
           });
-        });
+        }
       },
 
       /**
