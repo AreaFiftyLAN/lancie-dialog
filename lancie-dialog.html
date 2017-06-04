@@ -116,7 +116,7 @@ simply give it the `dialog-dismiss` attribute.
     <iron-media-query query="(max-height:640px)" query-matches="{{long}}"></iron-media-query>
 
     <div id="actualDialog">
-      <content></content>
+      <slot></slot>
     </div>
 
     <div id="backdrop" on-tap="close"></div>
