@@ -25,6 +25,10 @@ For customization of your element you can set the following css vars/mixins:
 If you want an element (e.g. a button) to dismiss the dialog,
 simply give it the `dialog-dismiss` attribute.
 
+### Dismiss callback ###
+You can pass a function to `dismiss-callback`.
+This can be used to prevent dismissing the dialog, when there are, for example, unsaved changes.
+
 @demo demo/index.html
 -->
 
@@ -104,6 +108,9 @@ simply give it the `dialog-dismiss` attribute.
     (function () {
       Polymer({
         is: 'lancie-dialog',
+        properties: {
+          dismissCallback: Function
+        },
 
         ready: function () {
           this.addDismissListeners();
@@ -134,14 +141,17 @@ simply give it the `dialog-dismiss` attribute.
 
         /**
         * Closes the lancie-dialog
+        * If there is a dismissCallback defined, it will only dismiss the dialog of said callback returns `true`
         * @return {void}
         */
         close: function () {
           setTimeout(function () {
-          this.style.display = 'none';
-            this.$.actualDialog.style.display = 'none';
-            this.$.backdrop.style.display = 'none';
-            this.$.backdrop.style.opacity = '0.0';
+            if (this.dismissCallback && this.dismissCallback() || !this.dismissCallback) {
+              this.style.display = 'none';
+              this.$.actualDialog.style.display = 'none';
+              this.$.backdrop.style.display = 'none';
+              this.$.backdrop.style.opacity = '0.0';
+            }
           }.bind(this), 130);
         },
       });
